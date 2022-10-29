@@ -1,2 +1,5 @@
 <p>delivery-details-page works!</p>
 <ul><li *ngFor="let date of dates" (click)="selectDate(date)">{{date}}</li></ul>
+<p *ngIf="!!selectedDate">Selected date: {{selectedDate}}</p>
+<ul><li *ngFor="let time of times" (click)="selectTime(time)">{{time | json}}</li></ul>
+<p *ngIf="!!selectedTime">Selected date: {{selectedTime | json}}</p>
