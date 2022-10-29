@@ -12,10 +12,12 @@ export class DeliveryDetailsPageComponent implements OnInit, OnDestroy {
 
   dates: string[] = [];
   times: DeliveryTime[] = [];
+  filteredTimes: DeliveryTime[] = [];
   selectedDate: string | null = null;
   selectedTime: DeliveryTime | null = null;
   deliveryDateSubscription: Subscription | null = null;
   deliveryTimeSubscription: Subscription | null = null;
+  onlyHomeDelivery = false
 
   constructor(
     private deliveryService: DeliveryService
@@ -34,9 +36,21 @@ export class DeliveryDetailsPageComponent implements OnInit, OnDestroy {
         })
       ).subscribe(times => {
         this.times = times;
+        this.setFilteredTimes();
       });
     this.deliveryTimeSubscription = this.deliveryService.getSelectedTime()
       .subscribe(time => this.selectedTime = time);
+    this.deliveryService.getHomeDelivery()
+      .subscribe(onlyHomeDelivery => {
+        this.onlyHomeDelivery = onlyHomeDelivery;
+        this.setFilteredTimes();
+        if (
+          this.selectedTime &&
+          !this.filteredTimes.map(({ deliveryTimeId }) => deliveryTimeId).includes(this.selectedTime.deliveryTimeId)
+        ) {
+          this.selectTime(null);
+        }
+      })
   }
 
   ngOnDestroy(): void {
@@ -48,7 +62,17 @@ export class DeliveryDetailsPageComponent implements OnInit, OnDestroy {
     this.selectedDate = this.deliveryService.setSelectedDate(date);
   }
 
-  public selectTime(time: DeliveryTime) {
+  public selectTime(time: DeliveryTime | null) {
     this.selectedTime = this.deliveryService.setSelectedTime(time);
+  }
+
+  public onHomeDeliveryClick() {
+    this.deliveryService.switchHomeDelivery();
+  }
+
+  private setFilteredTimes() {
+      this.filteredTimes = this.onlyHomeDelivery 
+        ? this.times.filter(({ inHomeAvailable }) => inHomeAvailable)
+        : this.times;
   }
 }
