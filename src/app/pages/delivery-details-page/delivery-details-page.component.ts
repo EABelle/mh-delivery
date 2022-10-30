@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { filter, Subscription, switchMap } from 'rxjs';
+import { filter, Subscription, switchMap, tap } from 'rxjs';
 import { DeliveryTime } from 'src/app/models/delivery-time.model';
 import { DeliveryService } from 'src/app/services/delivery-service/delivery.service';
+import { DeliveryHTTPService } from 'src/app/services/http-clients/delivery-http.service';
 
 @Component({
   selector: 'app-delivery-details-page',
@@ -17,45 +18,61 @@ export class DeliveryDetailsPageComponent implements OnInit, OnDestroy {
   selectedTime: DeliveryTime | null = null;
   deliveryDateSubscription: Subscription | null = null;
   deliveryTimeSubscription: Subscription | null = null;
+  homeDeliverySubscription: Subscription | null = null;
   onlyHomeDelivery = false
 
   constructor(
-    private deliveryService: DeliveryService
+    private deliveryService: DeliveryService,
+    private deliveryHTTPService: DeliveryHTTPService
   ) { }
 
-  ngOnInit(): void {
-    this.deliveryService.getAvailableDates().then(dates => {
-      this.dates = dates;
-    });
+  private subscribeSelectedDate() {
     this.deliveryDateSubscription = this.deliveryService.getSelectedDate()
       .pipe(
         filter(date => !!date),
-        switchMap(date => {
+        tap(date => {
           this.selectedDate = date;
-          return this.deliveryService.getAvailableTimes(date!!)
         })
-      ).subscribe(times => {
-        this.times = times;
-        this.setFilteredTimes();
+      ).subscribe(date => {
+        this.deliveryHTTPService.fetchAvailableTimes(date!!)
+          .then(times => {
+            this.times = times;
+            this.setFilteredTimes();
+          })
       });
+  }
+
+  private subscribeDeliveryTime() {
     this.deliveryTimeSubscription = this.deliveryService.getSelectedTime()
       .subscribe(time => this.selectedTime = time);
-    this.deliveryService.getHomeDelivery()
+  }
+
+  private subscribeIsHomeDelivery() {
+    this.homeDeliverySubscription = this.deliveryService.getHomeDelivery()
       .subscribe(onlyHomeDelivery => {
         this.onlyHomeDelivery = onlyHomeDelivery;
         this.setFilteredTimes();
-        if (
-          this.selectedTime &&
-          !this.filteredTimes.map(({ deliveryTimeId }) => deliveryTimeId).includes(this.selectedTime.deliveryTimeId)
-        ) {
+        if (!this.validateSelectedTime()) {
           this.selectTime(null);
         }
       })
   }
 
+  ngOnInit(): void {
+    this.deliveryHTTPService.fetchAvailableDates()
+      .then(dates => {
+        this.dates = dates;
+        this.deliveryService.initState(dates);
+      });
+    this.subscribeSelectedDate();
+    this.subscribeDeliveryTime();
+    this.subscribeIsHomeDelivery();
+  }
+
   ngOnDestroy(): void {
-    this.deliveryDateSubscription?.unsubscribe()
-    this.deliveryTimeSubscription?.unsubscribe()
+    this.deliveryDateSubscription?.unsubscribe();
+    this.deliveryTimeSubscription?.unsubscribe();
+    this.homeDeliverySubscription?.unsubscribe();
   }
 
   public selectDate(date: string) {
@@ -74,5 +91,10 @@ export class DeliveryDetailsPageComponent implements OnInit, OnDestroy {
       this.filteredTimes = this.onlyHomeDelivery 
         ? this.times.filter(({ inHomeAvailable }) => inHomeAvailable)
         : this.times;
+  }
+
+  private validateSelectedTime(): boolean {
+    return this.selectedTime == null ||
+      this.filteredTimes.map(({ deliveryTimeId }) => deliveryTimeId).includes(this.selectedTime.deliveryTimeId)
   }
 }
