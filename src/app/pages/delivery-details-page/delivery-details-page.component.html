@@ -9,3 +9,4 @@
 />
 <ul><li *ngFor="let time of filteredTimes" (click)="selectTime(time)">{{time | json}}</li></ul>
 <p *ngIf="!!selectedTime">Selected time: {{selectedTime | json}}</p>
+<button [disabled]="!selectedTime" [routerLink]="['/','delivery-confirmation']">Continue</button>

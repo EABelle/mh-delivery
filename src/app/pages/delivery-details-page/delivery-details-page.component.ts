@@ -49,9 +49,6 @@ export class DeliveryDetailsPageComponent implements OnInit, OnDestroy {
       .subscribe(onlyHomeDelivery => {
         this.onlyHomeDelivery = onlyHomeDelivery;
         this.setFilteredTimes();
-        if (!this.validateSelectedTime()) {
-          this.selectTime(null);
-        }
       })
   }
 
@@ -76,7 +73,7 @@ export class DeliveryDetailsPageComponent implements OnInit, OnDestroy {
     this.selectedDate = this.deliveryStateService.setDate(date);
   }
 
-  public selectTime(time: DeliveryTime | null) {
+  public selectTime(time: DeliveryTime) {
     this.selectedTime = this.deliveryStateService.setTime(time);
   }
 
@@ -88,12 +85,5 @@ export class DeliveryDetailsPageComponent implements OnInit, OnDestroy {
       this.filteredTimes = this.onlyHomeDelivery 
         ? this.times.filter(({ inHomeAvailable }) => inHomeAvailable)
         : this.times;
-  }
-
-  private validateSelectedTime(): boolean {
-    return this.selectedTime == null ||
-      this.filteredTimes
-        .map(({ deliveryTimeId }) => deliveryTimeId)
-        .includes(this.selectedTime.deliveryTimeId)
   }
 }

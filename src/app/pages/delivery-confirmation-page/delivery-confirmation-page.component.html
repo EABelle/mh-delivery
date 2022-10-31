@@ -1,0 +1,4 @@
+<p>delivery-confirmation-page works!</p>
+<p *ngIf="!!selectedDate">Selected date: {{selectedDate}}</p>
+<p *ngIf="!!selectedTime">Selected time: {{selectedTime | json}}</p>
+<button [disabled]="!selectedTime" [routerLink]="['/','delivery-details']">Go back</button>
