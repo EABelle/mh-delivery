@@ -80,10 +80,9 @@ export class DeliveryService {
     return this.homeDeliverySubject.asObservable();
   }
 
-  public switchHomeDelivery(): boolean {
-    const newValue = !this.deliveryCacheService.getIsHomeDelivery();
-    this.deliveryCacheService.setIsHomeDelivery(newValue)
-    this.homeDeliverySubject.next(newValue);
-    return newValue;
+  public setHomeDelivery(isHomeDelivery: boolean): boolean {
+    this.deliveryCacheService.setIsHomeDelivery(isHomeDelivery);
+    this.homeDeliverySubject.next(isHomeDelivery);
+    return isHomeDelivery;
   }
 }

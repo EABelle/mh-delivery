@@ -84,7 +84,7 @@ export class DeliveryDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   public onHomeDeliveryClick() {
-    this.deliveryService.switchHomeDelivery();
+    this.deliveryService.setHomeDelivery(!this.onlyHomeDelivery);
   }
 
   private setFilteredTimes() {
