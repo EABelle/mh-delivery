@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { filter, Subscription, switchMap, tap } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { DeliveryTime } from 'src/app/models/delivery-time.model';
-import { DeliveryService } from 'src/app/services/delivery-service/delivery.service';
+import { DeliveryStateService } from 'src/app/services/delivery-state-service/delivery-state.service';
 import { DeliveryHTTPService } from 'src/app/services/http-clients/delivery-http.service';
 
 @Component({
@@ -22,12 +22,12 @@ export class DeliveryDetailsPageComponent implements OnInit, OnDestroy {
   onlyHomeDelivery = false
 
   constructor(
-    private deliveryService: DeliveryService,
+    private deliveryStateService: DeliveryStateService,
     private deliveryHTTPService: DeliveryHTTPService
   ) { }
 
   private subscribeSelectedDate() {
-    this.deliveryDateSubscription = this.deliveryService.getSelectedDate()
+    this.deliveryDateSubscription = this.deliveryStateService.getDate()
       .subscribe(date => {
         if (!date) return;
         this.selectedDate = date;
@@ -40,12 +40,12 @@ export class DeliveryDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   private subscribeDeliveryTime() {
-    this.deliveryTimeSubscription = this.deliveryService.getSelectedTime()
+    this.deliveryTimeSubscription = this.deliveryStateService.getTime()
       .subscribe(time => this.selectedTime = time);
   }
 
   private subscribeIsHomeDelivery() {
-    this.homeDeliverySubscription = this.deliveryService.getHomeDelivery()
+    this.homeDeliverySubscription = this.deliveryStateService.getIsHomeDelivery()
       .subscribe(onlyHomeDelivery => {
         this.onlyHomeDelivery = onlyHomeDelivery;
         this.setFilteredTimes();
@@ -59,7 +59,7 @@ export class DeliveryDetailsPageComponent implements OnInit, OnDestroy {
     this.deliveryHTTPService.fetchAvailableDates()
       .then(dates => {
         this.dates = dates;
-        this.deliveryService.initState(dates);
+        this.deliveryStateService.initState(dates);
       });
     this.subscribeSelectedDate();
     this.subscribeDeliveryTime();
@@ -73,15 +73,15 @@ export class DeliveryDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   public selectDate(date: string) {
-    this.selectedDate = this.deliveryService.setSelectedDate(date);
+    this.selectedDate = this.deliveryStateService.setDate(date);
   }
 
   public selectTime(time: DeliveryTime | null) {
-    this.selectedTime = this.deliveryService.setSelectedTime(time);
+    this.selectedTime = this.deliveryStateService.setTime(time);
   }
 
   public onHomeDeliveryClick() {
-    this.deliveryService.setHomeDelivery(!this.onlyHomeDelivery);
+    this.deliveryStateService.setIsHomeDelivery(!this.onlyHomeDelivery);
   }
 
   private setFilteredTimes() {
