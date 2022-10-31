@@ -8,6 +8,7 @@ import { DeliveryDetailsPageComponent } from './pages/delivery-details-page/deli
 import { DeliveryConfirmationPageComponent } from './pages/delivery-confirmation-page/delivery-confirmation-page.component';
 import { SlotsContainerComponent } from './components/slots-container/slots-container.component';
 import { DatesContainerComponent } from './components/dates-container/dates-container.component';
+import { ButtonComponent } from './components/button/button.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { DatesContainerComponent } from './components/dates-container/dates-cont
     DeliveryDetailsPageComponent,
     DeliveryConfirmationPageComponent,
     SlotsContainerComponent,
-    DatesContainerComponent
+    DatesContainerComponent,
+    ButtonComponent
   ],
   imports: [
     BrowserModule,

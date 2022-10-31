@@ -4,6 +4,7 @@ import { lastValueFrom, map, Observable } from 'rxjs';
 import { DeliveryTimeDTO } from 'src/app/dtos/delivery-time.dto';
 import { DeliveryTimeTransformer } from 'src/app/dtos/transformers/delivery-time.transformer';
 import { DeliveryTime } from 'src/app/models/delivery-time.model';
+import { compareDates, compareTimes } from 'src/app/utils/date';
 
 enum ENDPOINT {
   DATES = 'dates',
@@ -24,13 +25,15 @@ export class DeliveryHTTPService {
   public fetchAvailableDates(): Promise<string[]> {
     const url = `${this.BASE_URL}/${ENDPOINT.DATES}`;
     const response$ = this.http.get<string[]>(url);
-    return lastValueFrom(response$);
+    return lastValueFrom(response$).then(dates => dates.sort(compareDates));
   }
 
   public async fetchAvailableTimes(date: string): Promise<DeliveryTime[]> {
     const url = `${this.BASE_URL}/${ENDPOINT.TIMES}/${date}`;
     const response$ = this.http.get<DeliveryTimeDTO[]>(url)
     const deliveryTimes = await lastValueFrom(response$);
-    return this.deliveryTimeTransformer.transformList(deliveryTimes);
+    return this.deliveryTimeTransformer
+      .transformList(deliveryTimes)
+      .sort(compareTimes);
   }
 }

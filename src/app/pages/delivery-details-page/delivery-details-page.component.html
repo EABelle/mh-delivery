@@ -1,12 +1,16 @@
-<p>delivery-details-page works!</p>
-<app-dates-container [dates]="dates" (selectDate)="selectDate($event)"></app-dates-container>
-<p *ngIf="!!selectedDate">Selected date: {{selectedDate}}</p>
-<input 
-    *ngIf="!!selectedDate"
-    type="checkbox"
-    [checked]="onlyHomeDelivery"
-    (change)="onHomeDeliveryClick()"
-/>
-<app-slots-container [slots]="filteredTimes" (selectSlot)="selectTime($event)"></app-slots-container>
-<p *ngIf="!!selectedTime">Selected time: {{selectedTime | json}}</p>
-<button [disabled]="!selectedTime" [routerLink]="['/','delivery-confirmation']">Continue</button>
+<app-dates-container [dates]="dates" [selectedDate]="selectedDate" (selectDate)="selectDate($event)"></app-dates-container>
+<label for="home-delivery" class="checkbox-label">
+    <input id="home-delivery"
+        *ngIf="!!selectedDate"
+        type="checkbox"
+        [checked]="onlyHomeDelivery"
+        (change)="onHomeDeliveryClick()"
+        class="checkbox"
+    />
+</label>
+<app-slots-container [selectedSlot]="selectedTime" [slots]="filteredTimes" (selectSlot)="selectTime($event)"></app-slots-container>
+<app-button 
+    [disabled]="!selectedTime" 
+    [routerLink]="['/','delivery-confirmation']"
+    label="Continue"
+></app-button>

@@ -48,6 +48,7 @@ export class DeliveryStateService {
   }
 
   public setDate(date: string): string {
+    this.clearTime();
     this.deliveryCacheService.setSelectedDate(date);
     this.dateSubject.next(date);
     return date;
@@ -63,6 +64,11 @@ export class DeliveryStateService {
     this.deliveryCacheService.setSelectedTime(time);
     this.timeSubject.next(time);
     return time;
+  }
+
+  private clearTime(): void {
+    this.deliveryCacheService.removeSelectedTime();
+    this.timeSubject.next(null);
   }
 
   // isHomeDelivery
