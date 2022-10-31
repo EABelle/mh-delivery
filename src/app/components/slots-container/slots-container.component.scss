@@ -20,8 +20,8 @@
     cursor: pointer;
     margin-bottom: 10px;
     &.selected {
-      background-color: #76e991;
-      border: 1px solid #52bc6b;
+        background-color: #cfebcd;
+        box-shadow: inset 0 0 0 2px #60ab59;
     }
   }
 }
