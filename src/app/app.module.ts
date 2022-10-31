@@ -5,11 +5,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DeliveryDetailsPageComponent } from './pages/delivery-details-page/delivery-details-page.component';
+import { DeliveryConfirmationPageComponent } from './pages/delivery-confirmation-page/delivery-confirmation-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DeliveryDetailsPageComponent
+    DeliveryDetailsPageComponent,
+    DeliveryConfirmationPageComponent
   ],
   imports: [
     BrowserModule,

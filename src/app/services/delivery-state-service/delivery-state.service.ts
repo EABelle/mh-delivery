@@ -20,7 +20,7 @@ export class DeliveryStateService {
   public initState(dates: string[]) {
     const selectedDate = this.deliveryCacheService.getSelectedDate();
     if (this.dateIsValid(selectedDate, dates)) {
-      this.clearDate();
+      this.clearState();
     }
     const time = this.deliveryCacheService.getDeliveryTime();
     const onlyHomeDelivery = this.deliveryCacheService.getIsHomeDelivery();
@@ -28,6 +28,13 @@ export class DeliveryStateService {
     this.dateSubject.next(selectedDate);
     this.timeSubject.next(time);
     this.homeDeliverySubject.next(onlyHomeDelivery);
+  }
+
+  private clearState(): void {
+    this.deliveryCacheService.removeSelectedDate();
+    this.deliveryCacheService.removeSelectedTime();
+    this.dateSubject.next(null);
+    this.timeSubject.next(null);
   }
   
   // Selected date
@@ -43,13 +50,7 @@ export class DeliveryStateService {
   public setDate(date: string): string {
     this.deliveryCacheService.setSelectedDate(date);
     this.dateSubject.next(date);
-    this.timeSubject.next(null);
     return date;
-  }
-
-  private clearDate(): void {
-    this.deliveryCacheService.removeSelectedDate();
-    this.dateSubject.next(null);
   }
 
   // Selected time
@@ -58,12 +59,8 @@ export class DeliveryStateService {
     return this.timeSubject.asObservable();
   }
 
-  public setTime(time: DeliveryTime | null): DeliveryTime | null {
-    if (time) {
-      this.deliveryCacheService.setSelectedTime(time);
-    } else {
-      this.deliveryCacheService.removeSelectedTime();
-    }
+  public setTime(time: DeliveryTime): DeliveryTime {
+    this.deliveryCacheService.setSelectedTime(time);
     this.timeSubject.next(time);
     return time;
   }
