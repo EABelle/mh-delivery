@@ -1,44 +1,47 @@
 .times-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  padding: 0 20px;
-  box-sizing: border-box;
-  .time-slot {
     width: 100%;
-    max-width: 400px;
-    height: 50px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    margin-bottom: 10px;
-    position: relative;
-    .label {
-      font-size: 10px;
-      font-weight: 500;
-      margin-left: 12px;
-      height: 18px;
-      line-height: 18px;
-      width: fit-content;
-      padding: 2px 4px;
-      padding-right: 4px;
-      border-radius: 10px;
-      color: #26263a;
-      vertical-align: middle;
-      background-color: #f4f4f5;
-      position: absolute;
-      right: 24px;
+    .times-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        padding: 0 20px;
+        box-sizing: border-box;
+        .time-slot {
+          width: 100%;
+          max-width: 400px;
+          height: 50px;
+          background-color: #fff;
+          border-radius: 5px;
+          box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          margin-bottom: 10px;
+          position: relative;
+          .label {
+            font-size: 10px;
+            font-weight: 500;
+            margin-left: 12px;
+            height: 18px;
+            line-height: 18px;
+            width: fit-content;
+            padding: 2px 4px;
+            padding-right: 4px;
+            border-radius: 10px;
+            color: #26263a;
+            vertical-align: middle;
+            background-color: #f4f4f5;
+            position: absolute;
+            right: 24px;
+          }
+          &.selected {
+              background-color: #cfebcd;
+              box-shadow: inset 0 0 0 2px #60ab59;
+          }
+        }
     }
-    &.selected {
-        background-color: #cfebcd;
-        box-shadow: inset 0 0 0 2px #60ab59;
-    }
-  }
 }

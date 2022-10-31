@@ -1,6 +1,8 @@
-<ul class="times-container">
-    <li class="time-slot" *ngFor="let slot of slots" (click)="onSelectSlot(slot)" [ngClass]="isSelected(slot) ? 'selected' : null" 
-    >
-        {{slot.startTime}} - {{slot.stopTime}} <p class="label" *ngIf="slot.inHomeAvailable"><b>Home delivery</b></p>
-    </li>
-</ul>
+<section class="times-container">
+    <ul class="times-list">
+        <li class="time-slot" *ngFor="let slot of slots" (click)="onSelectSlot(slot)" [ngClass]="isSelected(slot) ? 'selected' : null" 
+        >
+            {{slot.startTime}} - {{slot.stopTime}} <p class="label" *ngIf="slot.inHomeAvailable"><b>Home delivery</b></p>
+        </li>
+    </ul>
+</section>

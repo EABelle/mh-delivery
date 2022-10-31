@@ -3,5 +3,9 @@
         [ngClass]="isSelected(date) ? 'selected' : null" 
         *ngFor="let date of dates" 
         (click)="onSelectDate(date)"
-    >{{date | date: 'longDate'}}</li>
+    >
+        <p class="week-day">{{date | date: 'EEEE'}}</p>
+        <p class="day">{{date | date: 'dd'}}</p>
+        <p class="month">{{date | date: 'MMMM'}}</p>
+    </li>
 </ul>
