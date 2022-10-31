@@ -71,6 +71,17 @@ export class DeliveryStateService {
     this.timeSubject.next(null);
   }
 
+  private isTimeValid(time: DeliveryTime): boolean {
+    return this.deliveryCacheService.getIsHomeDelivery() ? time.inHomeAvailable : true;
+  }
+
+  private revalidateTime(): void {
+    const time = this.deliveryCacheService.getDeliveryTime();
+    if (time && !this.isTimeValid(time)) {
+      this.clearTime();
+    }
+  }
+
   // isHomeDelivery
 
   public getIsHomeDelivery(): Observable<boolean> {
@@ -80,6 +91,7 @@ export class DeliveryStateService {
   public setIsHomeDelivery(isHomeDelivery: boolean): boolean {
     this.deliveryCacheService.setIsHomeDelivery(isHomeDelivery);
     this.homeDeliverySubject.next(isHomeDelivery);
+    this.revalidateTime();
     return isHomeDelivery;
   }
 }
