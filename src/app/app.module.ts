@@ -6,12 +6,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DeliveryDetailsPageComponent } from './pages/delivery-details-page/delivery-details-page.component';
 import { DeliveryConfirmationPageComponent } from './pages/delivery-confirmation-page/delivery-confirmation-page.component';
+import { SlotsContainerComponent } from './components/slots-container/slots-container.component';
+import { DatesContainerComponent } from './components/dates-container/dates-container.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DeliveryDetailsPageComponent,
-    DeliveryConfirmationPageComponent
+    DeliveryConfirmationPageComponent,
+    SlotsContainerComponent,
+    DatesContainerComponent
   ],
   imports: [
     BrowserModule,

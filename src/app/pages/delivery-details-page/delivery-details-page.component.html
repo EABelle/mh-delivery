@@ -1,5 +1,5 @@
 <p>delivery-details-page works!</p>
-<ul><li *ngFor="let date of dates" (click)="selectDate(date)">{{date}}</li></ul>
+<app-dates-container [dates]="dates" (selectDate)="selectDate($event)"></app-dates-container>
 <p *ngIf="!!selectedDate">Selected date: {{selectedDate}}</p>
 <input 
     *ngIf="!!selectedDate"
@@ -7,6 +7,6 @@
     [checked]="onlyHomeDelivery"
     (change)="onHomeDeliveryClick()"
 />
-<ul><li *ngFor="let time of filteredTimes" (click)="selectTime(time)">{{time | json}}</li></ul>
+<app-slots-container [slots]="filteredTimes" (selectSlot)="selectTime($event)"></app-slots-container>
 <p *ngIf="!!selectedTime">Selected time: {{selectedTime | json}}</p>
 <button [disabled]="!selectedTime" [routerLink]="['/','delivery-confirmation']">Continue</button>
