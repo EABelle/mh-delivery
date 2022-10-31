@@ -28,12 +28,9 @@ export class DeliveryDetailsPageComponent implements OnInit, OnDestroy {
 
   private subscribeSelectedDate() {
     this.deliveryDateSubscription = this.deliveryService.getSelectedDate()
-      .pipe(
-        filter(date => !!date),
-        tap(date => {
-          this.selectedDate = date;
-        })
-      ).subscribe(date => {
+      .subscribe(date => {
+        if (!date) return;
+        this.selectedDate = date;
         this.deliveryHTTPService.fetchAvailableTimes(date!!)
           .then(times => {
             this.times = times;
@@ -95,6 +92,8 @@ export class DeliveryDetailsPageComponent implements OnInit, OnDestroy {
 
   private validateSelectedTime(): boolean {
     return this.selectedTime == null ||
-      this.filteredTimes.map(({ deliveryTimeId }) => deliveryTimeId).includes(this.selectedTime.deliveryTimeId)
+      this.filteredTimes
+        .map(({ deliveryTimeId }) => deliveryTimeId)
+        .includes(this.selectedTime.deliveryTimeId)
   }
 }
