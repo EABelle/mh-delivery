@@ -1,1 +1,6 @@
-<ul><li *ngFor="let slot of slots" (click)="onSelectSlot(slot)">{{slot | json}}</li></ul>
+<ul class="times-container">
+    <li class="time-slot" *ngFor="let slot of slots" (click)="onSelectSlot(slot)" [ngClass]="isSelected(slot) ? 'selected' : null" 
+    >
+        {{slot.startTime}} - {{slot.stopTime}}
+    </li>
+</ul>

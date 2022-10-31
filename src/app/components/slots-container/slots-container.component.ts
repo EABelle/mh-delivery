@@ -9,6 +9,7 @@ import { DeliveryTime } from 'src/app/models/delivery-time.model';
 export class SlotsContainerComponent {
 
   @Input() public slots: DeliveryTime[];
+  @Input() public selectedSlot: DeliveryTime | null = null;
   @Output() public selectSlot = new EventEmitter<DeliveryTime>();
 
   constructor() { }
@@ -17,4 +18,7 @@ export class SlotsContainerComponent {
     this.selectSlot.emit(slot);
   }
 
+  isSelected(slot: DeliveryTime): boolean {
+    return slot.deliveryTimeId === this.selectedSlot?.deliveryTimeId;
+  }
 }

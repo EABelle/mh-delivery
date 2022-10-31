@@ -1,0 +1,27 @@
+.times-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  .time-slot {
+    width: 100%;
+    max-width: 400px;
+    height: 50px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-bottom: 10px;
+    &.selected {
+      background-color: #76e991;
+      border: 1px solid #52bc6b;
+    }
+  }
+}

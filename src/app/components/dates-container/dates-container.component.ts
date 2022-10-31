@@ -8,11 +8,16 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class DatesContainerComponent {
 
   @Input() public dates: string[];
+  @Input() public selectedDate: string | null = null;
   @Output() public selectDate = new EventEmitter<string>();
 
   constructor() { }
 
   onSelectDate(date: string) {
     this.selectDate.emit(date);
+  }
+
+  isSelected(date: string): boolean {
+    return date === this.selectedDate;
   }
 }
