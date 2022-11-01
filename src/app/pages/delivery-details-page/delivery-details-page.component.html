@@ -1,24 +1,26 @@
 <section class="delivery-details-page">
-    <div *ngIfElse="loading">Loading...</div>
     <h1 class="title">Delivery time</h1>
-    <app-dates-container [dates]="dates" [selectedDate]="selectedDate" (selectDate)="selectDate($event)"></app-dates-container>
-    <app-checkbox 
-        *ngIf="!!selectedDate"
-        [checked]="onlyHomeDelivery"
-        (check)="onHomeDeliveryClick()"
-        label="Home delivery"
-    ></app-checkbox>
-    <app-slots-container
-        [selectedSlot]="selectedTime"
-        [slots]="filteredTimes"
-        (selectSlot)="selectTime($event)"
-        class="slots-container"
-    ></app-slots-container>
-    <div class="continue-button-container">
-        <app-button 
-            [disabled]="!selectedTime" 
-            [routerLink]="['/','delivery-confirmation']"
-            class="continue-button"
-       >Continue</app-button>
-    </div>
+    <b class="loader" *ngIf="loading; else content">Loading...</b>
+    <ng-template #content>
+        <app-dates-container [dates]="dates" [selectedDate]="selectedDate" (selectDate)="selectDate($event)"></app-dates-container>
+        <app-checkbox 
+            *ngIf="!!selectedDate"
+            [checked]="onlyHomeDelivery"
+            (check)="onHomeDeliveryClick()"
+            label="Home delivery"
+        ></app-checkbox>
+        <app-slots-container
+            [selectedSlot]="selectedTime"
+            [slots]="filteredTimes"
+            (selectSlot)="selectTime($event)"
+            class="slots-container"
+        ></app-slots-container>
+        <div class="continue-button-container">
+            <app-button 
+                [disabled]="!selectedTime" 
+                [routerLink]="['/','delivery-confirmation']"
+                class="continue-button"
+           >Continue</app-button>
+        </div>
+    </ng-template>
 </section>
