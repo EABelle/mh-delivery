@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { RoutePath } from 'src/app/app-routing.module';
 import { DeliveryTime } from 'src/app/models/delivery-time.model';
 import { DeliveryStateService } from 'src/app/services/delivery-state-service/delivery-state.service';
 import { DeliveryHTTPService } from 'src/app/services/http-clients/delivery-http.service';
@@ -21,6 +22,7 @@ export class DeliveryDetailsPageComponent implements OnInit, OnDestroy {
   homeDeliverySubscription: Subscription | null = null;
   onlyHomeDelivery = false;
   loading: boolean;
+  continueLink = ['/', RoutePath.DeliveryConfirmation]
 
   constructor(
     private deliveryStateService: DeliveryStateService,
