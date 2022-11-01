@@ -1,1 +1,1 @@
-<button class="button" (click)="onClick()" [disabled]="disabled" [ngClass]="!!disabled ? 'disabled' : null">{{label}}</button>
+<button class="button" (click)="onClick()" [disabled]="disabled" [ngClass]="!!disabled ? 'disabled' : null"><ng-content></ng-content></button>

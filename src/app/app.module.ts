@@ -9,6 +9,7 @@ import { DeliveryConfirmationPageComponent } from './pages/delivery-confirmation
 import { SlotsContainerComponent } from './components/slots-container/slots-container.component';
 import { DatesContainerComponent } from './components/dates-container/dates-container.component';
 import { ButtonComponent } from './components/button/button.component';
+import { CheckboxComponent } from './components/checkbox/checkbox.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ButtonComponent } from './components/button/button.component';
     DeliveryConfirmationPageComponent,
     SlotsContainerComponent,
     DatesContainerComponent,
-    ButtonComponent
+    ButtonComponent,
+    CheckboxComponent
   ],
   imports: [
     BrowserModule,

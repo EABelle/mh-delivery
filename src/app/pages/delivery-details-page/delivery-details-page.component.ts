@@ -19,12 +19,15 @@ export class DeliveryDetailsPageComponent implements OnInit, OnDestroy {
   deliveryDateSubscription: Subscription | null = null;
   deliveryTimeSubscription: Subscription | null = null;
   homeDeliverySubscription: Subscription | null = null;
-  onlyHomeDelivery = false
+  onlyHomeDelivery = false;
+  loading: boolean;
 
   constructor(
     private deliveryStateService: DeliveryStateService,
     private deliveryHTTPService: DeliveryHTTPService
-  ) { }
+  ) {
+    this.loading = true;
+   }
 
   private subscribeSelectedDate() {
     this.deliveryDateSubscription = this.deliveryStateService.getDate()
@@ -56,6 +59,7 @@ export class DeliveryDetailsPageComponent implements OnInit, OnDestroy {
     this.deliveryHTTPService.fetchAvailableDates()
       .then(dates => {
         this.dates = dates;
+        this.loading = false;
         this.deliveryStateService.initState(dates);
       });
     this.subscribeSelectedDate();

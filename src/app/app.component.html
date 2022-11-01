@@ -1,4 +1,7 @@
 <header class="header">
+    <a class="back-button" *ngIf="backButtonUrl" [routerLink]="['/',backButtonUrl]">Go back</a>
     <img class="mathem-logo" src="/assets/mathem_icon.png" alt="mathem-logo">
 </header>
-<router-outlet></router-outlet>
+<main class="page-container">
+    <router-outlet></router-outlet>
+</main>

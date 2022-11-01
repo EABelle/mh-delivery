@@ -6,7 +6,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent {
-  @Input() label: string = '';
   @Input() disabled: boolean = false;
   // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() click = new EventEmitter<void>();

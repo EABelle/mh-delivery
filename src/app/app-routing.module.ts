@@ -3,18 +3,23 @@ import { RouterModule, Routes } from '@angular/router';
 import { DeliveryConfirmationPageComponent } from './pages/delivery-confirmation-page/delivery-confirmation-page.component';
 import { DeliveryDetailsPageComponent } from './pages/delivery-details-page/delivery-details-page.component';
 
+export enum RoutePath {
+  DeliveryDetails = 'delivery-details',
+  DeliveryConfirmation = 'delivery-confirmation',
+}
+
 const routes: Routes = [
   {
-    path: 'delivery-details',
+    path: RoutePath.DeliveryDetails,
     component: DeliveryDetailsPageComponent
   },
   {
-    path: 'delivery-confirmation',
+    path: RoutePath.DeliveryConfirmation,
     component: DeliveryConfirmationPageComponent
   },
   {
     path: '**',
-    redirectTo: 'delivery-details'
+    redirectTo: RoutePath.DeliveryDetails
   }
 ];
 

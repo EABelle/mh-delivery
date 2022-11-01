@@ -1,4 +1,5 @@
-<p>delivery-confirmation-page works!</p>
-<p *ngIf="!!selectedDate">Selected date: {{selectedDate}}</p>
-<p *ngIf="!!selectedTime">Selected time: {{selectedTime | json}}</p>
-<button [disabled]="!selectedTime" [ngClass]="!!selectedTime ? 'enabled' : 'disabled'" [routerLink]="['/','delivery-details']">Go back</button>
+<section class="delivery-confirmation">
+    <h1 class="title">Delivery confirmation</h1>
+    <p class="text">Your order will be delivered on {{selectedDate}}</p>
+    <p>From {{selectedTime?.startTime}} to {{selectedTime?.stopTime}}<b *ngIf="selectedTime?.inHomeAvailable"> Home Delivery</b></p>
+</section>
