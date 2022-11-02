@@ -7,7 +7,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 The pages consume three main services:
 - `DeliveryHTTPService` for having the available data from Mathem (available dates and times). It also has the responsibility of returning all the data sorted as requested.
 - `DeliveryCacheService` which consumes the delivery data from the user into the `LocalStorage`, to persist between reloads.
-- `DeliveryStateService` for subscribing to the selected data by the user (dates, times and home delivery), and also pushing changes to the data. This service consumes the `DeliveryCacheService` to get/update the data.
+- `DeliveryStateService` for subscribing to the delivery data set by the user (dates, times and home delivery), and also pushing delivery data changes. This service consumes the `DeliveryCacheService` to get/update the data.
 
 Also, each page is managed by the `router-outlet` from the `RoutingModule`, also being `/delivery-details` url's page the default one when navigating.
 <img width="799" alt="image" src="https://user-images.githubusercontent.com/9503826/199574224-86d0fbd0-2228-4d79-bd1f-0186ca2f83e1.png">
