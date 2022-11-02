@@ -22,7 +22,7 @@ export class DeliveryStateService {
     if (this.dateIsValid(selectedDate, dates)) {
       this.clearState();
     }
-    const time = this.deliveryCacheService.getDeliveryTime();
+    const time = this.deliveryCacheService.getSelectedTime();
     const onlyHomeDelivery = this.deliveryCacheService.getIsHomeDelivery();
 
     this.dateSubject.next(selectedDate);
@@ -76,7 +76,7 @@ export class DeliveryStateService {
   }
 
   private revalidateTime(): void {
-    const time = this.deliveryCacheService.getDeliveryTime();
+    const time = this.deliveryCacheService.getSelectedTime();
     if (time && !this.isTimeValid(time)) {
       this.clearTime();
     }

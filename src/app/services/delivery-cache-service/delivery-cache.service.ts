@@ -29,7 +29,7 @@ export class DeliveryCacheService {
     this.cacheService.removeData(CACHE_KEY.SELECTED_DATE);
   }
 
-  public getDeliveryTime(): DeliveryTime | null {
+  public getSelectedTime(): DeliveryTime | null {
     const timesCache = this.cacheService.getData(CACHE_KEY.SELECTED_TIME);
     return timesCache ? JSON.parse(timesCache) : null;
   }

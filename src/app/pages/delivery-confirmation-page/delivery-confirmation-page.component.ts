@@ -18,7 +18,7 @@ export class DeliveryConfirmationPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedDate = this.deliveryCacheService.getSelectedDate();
-    this.selectedTime = this.deliveryCacheService.getDeliveryTime();
+    this.selectedTime = this.deliveryCacheService.getSelectedTime();
   }
 
 }

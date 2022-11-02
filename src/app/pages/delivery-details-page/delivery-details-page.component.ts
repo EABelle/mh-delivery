@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { RoutePath } from 'src/app/app-routing.module';
 import { DeliveryTime } from 'src/app/models/delivery-time.model';
 import { DeliveryStateService } from 'src/app/services/delivery-state-service/delivery-state.service';
-import { DeliveryHTTPService } from 'src/app/services/http-clients/delivery-http.service';
+import { DeliveryHTTPService } from 'src/app/services/delivery-http-service/delivery-http.service';
 
 @Component({
   selector: 'app-delivery-details-page',

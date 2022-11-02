@@ -44,7 +44,7 @@ describe('DeliveryCacheService', () => {
 
   describe('getSelectedTime', () => {
     it('should return null when no data', () => {
-      expect(service.getDeliveryTime()).toBeNull();
+      expect(service.getSelectedTime()).toBeNull();
     });
 
     it('should return the selected time', () => {
@@ -55,7 +55,7 @@ describe('DeliveryCacheService', () => {
         stopTime: '09:00',
         inHomeAvailable: true
       });
-      expect(service.getDeliveryTime()).toEqual({
+      expect(service.getSelectedTime()).toEqual({
         deliveryTimeId: '1',
         deliveryDate: '2023-01-01',
         startTime: '08:00',
@@ -73,7 +73,7 @@ describe('DeliveryCacheService', () => {
         inHomeAvailable: true
       });
       service.setSelectedDate('2020-01-01');
-      expect(service.getDeliveryTime()).toEqual({
+      expect(service.getSelectedTime()).toEqual({
         deliveryTimeId: '1',
         deliveryDate: '2023-01-01',
         startTime: '08:00',
@@ -99,7 +99,7 @@ describe('DeliveryCacheService', () => {
         stopTime: '09:00',
         inHomeAvailable: true
       });
-      expect(service.getDeliveryTime()).toEqual({
+      expect(service.getSelectedTime()).toEqual({
         deliveryTimeId: '1',
         deliveryDate: '2023-01-01',
         startTime: '08:00',
@@ -127,7 +127,7 @@ describe('DeliveryCacheService', () => {
         inHomeAvailable: true
       });
       service.removeSelectedTime();
-      expect(service.getDeliveryTime()).toBeNull();
+      expect(service.getSelectedTime()).toBeNull();
     });
   });
 

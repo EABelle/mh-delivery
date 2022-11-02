@@ -1,8 +1,11 @@
-import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { BehaviorSubject, throwIfEmpty } from 'rxjs';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { DeliveryHTTPService } from './delivery-http.service';
+
+enum URL {
+  DELIVERY_DATES = 'https://api.mathem.io/mh-test-assignment/delivery/dates',
+  DELIVERY_TIMES = 'https://api.mathem.io/mh-test-assignment/delivery/times'
+}
 
 describe('DeliveryHTTPService', () => {
   let service: DeliveryHTTPService;
@@ -27,7 +30,7 @@ describe('DeliveryHTTPService', () => {
 
   it('should return a list of dates', async () => {
     const dates = service.fetchAvailableDates();
-    const req = httpMock.expectOne('https://api.mathem.io/mh-test-assignment/delivery/dates');
+    const req = httpMock.expectOne(URL.DELIVERY_DATES);
     expect(req.request.method).toBe('GET');
     req.flush(['2021-01-01', '2021-01-02', '2021-01-03']);
     expect(await dates).toEqual(['2021-01-01', '2021-01-02', '2021-01-03']);
@@ -35,7 +38,7 @@ describe('DeliveryHTTPService', () => {
 
   it('should return a list of time slots for a date', async () => {
     const timeSlots = service.fetchAvailableTimes('2023-01-01');
-    const req = httpMock.expectOne('https://api.mathem.io/mh-test-assignment/delivery/times/2023-01-01');
+    const req = httpMock.expectOne(`${URL.DELIVERY_TIMES}/2023-01-01`);
     expect(req.request.method).toBe('GET');
     const responseMatch = [{
       deliveryTimeId: '1',
@@ -51,7 +54,7 @@ describe('DeliveryHTTPService', () => {
   
   it('should sort the time slots by start time', async () => {
     const timeSlots = service.fetchAvailableTimes('2023-01-01');
-    const req = httpMock.expectOne('https://api.mathem.io/mh-test-assignment/delivery/times/2023-01-01');
+    const req = httpMock.expectOne(`${URL.DELIVERY_TIMES}/2023-01-01`);
     expect(req.request.method).toBe('GET');
     const responseData = [{
       deliveryTimeId: '1',
@@ -79,7 +82,7 @@ describe('DeliveryHTTPService', () => {
 
   it('should sort the time slots by start time and end time', async () => {
     const timeSlots = service.fetchAvailableTimes('2023-01-01');
-    const req = httpMock.expectOne('https://api.mathem.io/mh-test-assignment/delivery/times/2023-01-01');
+    const req = httpMock.expectOne(`${URL.DELIVERY_TIMES}/2023-01-01`);
     expect(req.request.method).toBe('GET');
     const responseData = [{
       deliveryTimeId: '1',
@@ -102,6 +105,7 @@ describe('DeliveryHTTPService', () => {
     }];
     req.flush(responseData);
     const response = await timeSlots;
-    expect(response.map((timeSlot) => ({...timeSlot}))).toEqual([responseData[2], responseData[1], responseData[0]]);
+    expect(response.map((timeSlot) => ({...timeSlot})))
+      .toEqual([responseData[2], responseData[1], responseData[0]]);
   });
 });
