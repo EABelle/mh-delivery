@@ -30,6 +30,7 @@ export class DeliveryHTTPService {
 
   public async fetchAvailableTimes(date: string): Promise<DeliveryTime[]> {
     const url = `${this.BASE_URL}/${ENDPOINT.TIMES}/${date}`;
+    console.log(url);
     const response$ = this.http.get<DeliveryTimeDTO[]>(url)
     const deliveryTimes = await lastValueFrom(response$);
     return this.deliveryTimeTransformer
