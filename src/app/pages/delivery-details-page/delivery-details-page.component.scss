@@ -1,20 +1,23 @@
-.delivery-details-page {
-    .title {
-        color: #26263a;
-        margin-bottom: 20px;
-        width: 100%;
-    }
-    .slots-container {
-        width: 100%;
-    }
-    .continue-button-container {
-        width: 100%;
-        height: 50px;
-        position: relative;
-        .continue-button {
-            margin: 12px auto;
-            display: block;
-            width: fit-content;
+:host {
+    width: 100%;
+    .delivery-details-page {
+        .title {
+            color: #26263a;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        .slots-container {
+            width: 100%;
+        }
+        .continue-button-container {
+            width: 100%;
+            height: 50px;
+            position: relative;
+            .continue-button {
+                margin: 12px auto;
+                display: block;
+                width: fit-content;
+            }
         }
     }
 }
