@@ -80,9 +80,9 @@ describe('SlotsContainerComponent', () => {
       '09:00 - 11:00'
     ];
     fixture.detectChanges();
-    const times = fixture.nativeElement.querySelectorAll('.time');
+    const times = fixture.nativeElement.querySelectorAll('.time-slot');
     times.forEach((time: any, index: number) => 
-      expect(time.textContent).toEqual(expectedTimes[index])
+      expect(time.textContent).toContain(expectedTimes[index])
     );
   });
 

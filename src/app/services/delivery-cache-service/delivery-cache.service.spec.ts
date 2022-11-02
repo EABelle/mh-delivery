@@ -131,4 +131,32 @@ describe('DeliveryCacheService', () => {
     });
   });
 
+  describe('getIsHomeDelivery', () => {
+    it('should return false when no data', () => {
+      expect(service.getIsHomeDelivery()).toBe(false);
+    });
+
+    it('should return true when data is true', () => {
+      service.setIsHomeDelivery(true);
+      expect(service.getIsHomeDelivery()).toBe(true);
+    });
+
+    it('should return false when data is false', () => {
+      service.setIsHomeDelivery(false);
+      expect(service.getIsHomeDelivery()).toBe(false);
+    });
+  });
+
+  describe('setIsHomeDelivery', () => {
+    it('should set the isHomeDelivery to true', () => {
+      service.setIsHomeDelivery(true);
+      expect(service.getIsHomeDelivery()).toBe(true);
+    });
+
+    it('should set the isHomeDelivery to false', () => {
+      service.setIsHomeDelivery(false);
+      expect(service.getIsHomeDelivery()).toBe(false);
+    });
+  });
+
 });
