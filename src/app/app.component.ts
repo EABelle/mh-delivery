@@ -28,7 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.urlSubscription.unsubscribe();
+    this.urlSubscription?.unsubscribe();
   }
 
   private getBackButtonUrl(): string {

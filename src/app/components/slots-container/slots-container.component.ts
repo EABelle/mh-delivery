@@ -12,8 +12,6 @@ export class SlotsContainerComponent {
   @Input() public selectedSlot: DeliveryTime | null = null;
   @Output() public selectSlot = new EventEmitter<DeliveryTime>();
 
-  constructor() { }
-
   onSelectSlot(slot: DeliveryTime) {
     this.selectSlot.emit(slot);
   }
