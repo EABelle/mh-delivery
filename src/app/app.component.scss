@@ -9,6 +9,12 @@
         transform: translateY(-50%);
         cursor: pointer;
         color: #26263a;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        &:hover {
+            color: #7c7c87;
+        }
     }
     .mathem-logo {
         height: 36px;
